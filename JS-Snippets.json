@@ -1,0 +1,12 @@
+{
+	"Fetch string vars":
+	{
+		"prefix": "ftc",
+		"body": [
+			"export const FETCH_${2:THING}_START = \"FETCH_${2:THING}_START\"" ,
+			"export const FETCH_${2:THING}_SUCCESS = \"FETCH_${2:THING}_SUCCESS\"" ,
+			"export const FETCH_${2:THING}_FAIL = \"FETCH_${2:THING}_FAIL\""
+		],
+		"description": "make some fetch action strings"
+	}
+}

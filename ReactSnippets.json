@@ -1,0 +1,52 @@
+{
+	"React Function Component": {
+		"prefix": "refnc",
+		"body": [
+			"import React from \"react\"\n",
+			"const ${TM_FILENAME/(.*)\\..+$/$1/} = () =>",
+			"{",
+			"\treturn (",
+			"\t\t<div></div>",
+			"\t)",
+			"}\n",
+			"export default ${TM_FILENAME/(.*)\\..+$/$1/}"
+		]	
+	},
+
+	"React Function Component With Props": {
+		"prefix": "refpc",
+		"body": [
+			"import React from \"react\"\n",
+			"const ${TM_FILENAME/(.*)\\..+$/$1/} = (props) =>",
+			"{",
+			"\tconst {  } = props",
+			"\treturn (",
+			"\t\t<div></div>",
+			"\t)",
+			"}\n",
+			"export default ${TM_FILENAME/(.*)\\..+$/$1/}"
+		]	
+	},
+	"event prevent default": {
+		"prefix": "evp",
+		"body": "event.preventDefault()"
+	},
+	"React Function Component with Redux Hooks":
+	{
+		"prefix": "rxh",
+		"body": [
+			"import React from \"react\"",
+			"import {useSelector, useDispatch} from \"react-redux\"",
+			"import {${2:action}} from \"../../actions\"\n",
+			"const ${TM_FILENAME/(.*)\\..+$/$1/} = _ =>",
+			"{",
+			"\tconst dispatch = useDispatch()",
+			"\tconst state = useSelector(state => state)\n",
+			"\treturn (",
+			"\t\t<div></div>",
+			"\t)",
+			"}\n",
+			"export default ${TM_FILENAME/(.*)\\..+$/$1/}"
+		]
+	}
+}
