@@ -43,7 +43,7 @@
 			"\tconst dispatch = useDispatch()",
 			"\tconst state = useSelector(state => state)\n",
 			"\treturn (",
-			"\t\t<div></div>",
+			"\t\t<>\n\n\t\t</>",
 			"\t)",
 			"}\n",
 			"export default ${TM_FILENAME/(.*)\\..+$/$1/}"
