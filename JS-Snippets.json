@@ -8,5 +8,15 @@
 			"export const FETCH_${2:THING}_FAIL = \"FETCH_${2:THING}_FAIL\""
 		],
 		"description": "make some fetch action strings"
+	},
+	"ACTION_STRING_CONSTS":
+	{
+		"prefix": "asc",
+		"body": [
+			"export const ${2:THING}_START = \"${2:THING}_START\"" ,
+			"export const ${2:THING}_SUCCESS = \"${2:THING}_SUCCESS\"" ,
+			"export const ${2:THING}_FAIL = \"${2:THING}_FAIL\""
+		],
+		"description": "make some action string consts"
 	}
 }
