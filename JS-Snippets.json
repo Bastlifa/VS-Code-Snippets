@@ -1,15 +1,4 @@
-{
-	"Fetch string vars":
-	{
-		"prefix": "ftc",
-		"body": [
-			"export const FETCH_${2:THING}_START = \"FETCH_${2:THING}_START\"" ,
-			"export const FETCH_${2:THING}_SUCCESS = \"FETCH_${2:THING}_SUCCESS\"" ,
-			"export const FETCH_${2:THING}_FAIL = \"FETCH_${2:THING}_FAIL\""
-		],
-		"description": "make some fetch action strings"
-	},
-	"ACTION_STRING_CONSTS":
+"ACTION_STRING_CONSTS":
 	{
 		"prefix": "asc",
 		"body": [
@@ -18,5 +7,45 @@
 			"export const ${2:THING}_FAIL = \"${2:THING}_FAIL\""
 		],
 		"description": "make some action string consts"
+	},
+	"export const thing":
+	{
+		"prefix": "expc",
+		"body": "export const ${2:thing}",
+		"description": "make an export const thing"
+	},
+	"export const function":
+	{
+		"prefix": "expf",
+		"body": [
+			"export const ${2:functionName} = () =>",
+			"{",
+			"\t",
+			"}"
+		]
+		"description": "make an export const thing"
+	},
+	"describe it block":
+	{
+		"prefix": "dib",
+		"body": [
+			"describe('${2:thing}', () =>",
+			"{",
+			"\tit('', () =>",
+			"\t{",
+			"\t\t",
+			"\t})",
+			"})"
+		],
+		"description": "makes a describe it block"
+	},
+	"it block":
+	{
+		"prefix": "itb",
+		"body": [
+			"it('${2:thing}', () =>",
+			"{\n",
+			"})",
+		],
+		"description": "makes an it block"
 	}
-}
