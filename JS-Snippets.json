@@ -65,6 +65,27 @@
 		],
 		"description": "import BrowserRouter as Router, and wrap app"
 	},
+	"import BrowserRouter as Router, Redux, Reaxt-Redux, thunk and wrap app":
+	{
+		"prefix": "brprt",
+		"body": [
+			"import {BrowserRouter as Router} from 'react-router-dom'",
+			"import { createStore, applyMiddleware } from 'redux'",
+			"import { Provider } from 'react-redux'",
+			"import thunk from 'redux-thunk'",
+			"import {${2:reducerName}} from './reducers'\n",
+			"const store = createStore(${2:reducerName}, applyMiddleware(thunk))\n",
+			"ReactDOM.render(",
+			"\t<Provider store={store} >",
+			"\t\t<Router>",
+			"\t\t\t<App />",
+			"\t\t</Router>",
+			"\t</Provider>,",
+			"\tdocument.getElementById('root')",
+			");"
+		],
+		"description": "import BrowserRouter as Router, Redux, Reaxt-Redux, thunk and wrap app"
+	},
 	"Register User Action":
 	{
 		"prefix": "rgu",
