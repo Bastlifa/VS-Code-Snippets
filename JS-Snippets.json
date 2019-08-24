@@ -1,4 +1,5 @@
-"ACTION_STRING_CONSTS":
+{
+	"ACTION_STRING_CONSTS":
 	{
 		"prefix": "asc",
 		"body": [
@@ -45,7 +46,69 @@
 		"body": [
 			"it('${2:thing}', () =>",
 			"{\n",
-			"})",
+			"})"
 		],
 		"description": "makes an it block"
+	},
+	"import BrowserRouter as Router, and wrap app":
+	{
+		"prefix": "brr",
+		"body": [
+			"import {BrowserRouter as Router} from 'react-router-dom'",
+			"\n",
+			"ReactDOM.render(",
+			"\t<Router>",
+			"\t\t<App />",
+			"\t</Router>,",
+			"\tdocument.getElementById('root')",
+			");"
+		],
+		"description": "import BrowserRouter as Router, and wrap app"
+	},
+	"Register User Action":
+	{
+		"prefix": "rgu",
+		"body": [
+			"export const registerUser = (regInfo) => dispatch =>",
+			"{",
+			"\tdispatch({ type: REGISTER_USER_START })\n",
+			"\taxios",
+			"\t\t.post(`\\${endPoint}/register`, regInfo)",
+			"\t\t.then(res =>",
+			"\t\t\t{",
+			"\t\t\t\tconsole.log(\"res from registerUser:\", res)",
+			"\t\t\t\tdispatch({ type: REGISTER_USER_SUCCESS, payload: res })",
+			"\t\t\t})",
+			"\t\t.catch(err =>",
+			"\t\t\t{",
+			"\t\t\t\tconsole.log(\"err from registerUser\", err)",
+			"\t\t\t\tdispatch({ type: REGISTER_USER_FAIL, payload: err })",
+			"\t\t\t})",
+			"}"
+		],
+		"description": "register user action which dispatches to reducer"
+	},
+	"Login User Action":
+	{
+		"prefix": "lgu",
+		"body": [
+			"export const loginUser = (creds) => dispatch =>",
+			"{",
+			"\tdispatch({ type: LOGIN_USER_START })\n",
+			"\taxios",
+			"\t\t.post(`\\${endPoint}/login`, creds)",
+			"\t\t.then(res =>",
+			"\t\t\t{",
+			"\t\t\t\tconsole.log(\"res from loginUser:\", res)",
+			"\t\t\t\tdispatch({ type: LOGIN_USER_SUCCESS, payload: res })",
+			"\t\t\t})",
+			"\t\t.catch(err =>",
+			"\t\t\t{",
+			"\t\t\t\tconsole.log(\"err from loginUser\", err)",
+			"\t\t\t\tdispatch({ type: LOGIN_USER_FAIL, payload: err })",
+			"\t\t\t})",
+			"}"
+		],
+		"description": "login user action which dispatches to reducer"
 	}
+}
