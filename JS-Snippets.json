@@ -12,7 +12,7 @@
 	"const blah = require blah":
 	{
 		"prefix": "rem",
-		"body": "const ${1:thing} = require('${1:thing}')",
+		"body": "const ${1:thing} = require('${2:path}${1:thing}')",
 		"description": "old import style"
 	},
 	"reducer switch/case scaffold":
