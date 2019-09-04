@@ -9,6 +9,51 @@
 		],
 		"description": "make some action string consts"
 	},
+	"const blah = require blah":
+	{
+		"prefix": "rem",
+		"body": "const ${1:thing} = require('${1:thing}')",
+		"description": "old import style"
+	},
+	"reducer switch/case scaffold":
+	{
+		"prefix": "redsc",
+		"body": [
+			"export const ${1:reducer} = (state = initialState, action) =>",
+			"{",
+			"\tswitch(action.payload)",
+			"\t{\n",
+			"\t\tdefault:",
+			"\t\t\treturn state",
+			"\t}",
+			"}"
+		]
+	},
+	"reducer start success fail cases":
+	{
+		"prefix": "redssf",
+		"body": [
+			"case ${1}_START:",
+			"\treturn {",
+			"\t\t...state,",
+			"\t\tisLoading: true,",
+			"\t\terror: \"\",",
+			"\t}",
+			"case ${1}_SUCCESS:",
+			"\treturn {",
+			"\t\t...state,",
+			"\t\tisLoading: false,\n",
+			"\t\terror: \"\",",
+			"\t}",
+			"case ${1}_FAIL:",
+			"\treturn {",
+			"\t\t...state,",
+			"\t\tisLoading: false,",
+			"\t\terror: action.payload,",
+			"\t}"
+		],
+		"description": "scaffolds reducer start, success, fail cases"
+	},
 	"export const thing":
 	{
 		"prefix": "expc",
@@ -46,7 +91,7 @@
 		"body": [
 			"it('${2:thing}', () =>",
 			"{\n",
-			"})"
+			"})",
 		],
 		"description": "makes an it block"
 	},
@@ -65,10 +110,14 @@
 		],
 		"description": "import BrowserRouter as Router, and wrap app"
 	},
-	"import BrowserRouter as Router, Redux, Reaxt-Redux, thunk and wrap app":
+	"index with import BrowserRouter as Router, Redux, Reaxt-Redux, thunk and wrap app":
 	{
 		"prefix": "brprt",
 		"body": [
+			"import React from 'react'",
+			"import ReactDOM from 'react-dom'",
+			"import './index.css'",
+			"import App from './App'",
 			"import {BrowserRouter as Router} from 'react-router-dom'",
 			"import { createStore, applyMiddleware } from 'redux'",
 			"import { Provider } from 'react-redux'",
@@ -131,5 +180,253 @@
 			"}"
 		],
 		"description": "login user action which dispatches to reducer"
-	}
+	},
+	"axiosWithAuth get":
+	{
+		"prefix": "axaget",
+		"body": [
+			"export const get${1:thing} = _ => dispatch =>",
+			"{",
+			"\tdispatch({ type: GET_${2:THING}_START })\n",
+			"\taxiosWithAuth()",
+			"\t\t.get(`${baseURL}/${3}`)",
+			"\t\t\t.then(res =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"res from get${1:thing}:\", res)",
+			"\t\t\t\t\tdispatch({ type: GET_${2:THING}_SUCCESS, payload: res })",
+			"\t\t\t\t})",
+			"\t\t\t.catch(err =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"err from get${1:thing}:\", err)",
+			"\t\t\t\t\tdispatch({ type: GET_${2:THING}_FAIL, payload: err })",
+			"\t\t\t\t})",
+			"}"
+		],
+		"description": "make an action to get with axiosWithAuth"
+	},
+	"axiosWithAuth delete":
+	{
+		"prefix": "axadel",
+		"body": [
+			"export const delete${1:thing} = id => dispatch =>",
+			"{",
+			"\tdispatch({ type: DELETE_${3:THING}_START })\n",
+			"\taxiosWithAuth()",
+			"\t\t.delete(`${baseURL}/${4}/id`)",
+			"\t\t\t.then(res =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"res from delete${1:thing}:\", res)",
+			"\t\t\t\t\tdispatch({ type: DELETE_${3:THING}_SUCCESS, payload: res })",
+			"\t\t\t\t})",
+			"\t\t\t.catch(err =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"err from delete${1:thing}:\", err)",
+			"\t\t\t\t\tdispatch({ type: DELETE_${3:THING}_FAIL, payload: err })",
+			"\t\t\t\t})",
+			"}"
+		],
+		"description": "make an action to delete with axiosWithAuth"
+	},
+	"axiosWithAuth post":
+	{
+		"prefix": "axapost",
+		"body": [
+			"export const post${1:thing} = ${2:thingToPost} => dispatch =>",
+			"{",
+			"\tdispatch({ type: POST_${3:THING}_START })\n",
+			"\taxiosWithAuth()",
+			"\t\t.post(`${baseURL}/${4}`, ${2:thingToPost})",
+			"\t\t\t.then(res =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"res from post${1:thing}:\", res)",
+			"\t\t\t\t\tdispatch({ type: POST_${3:THING}_SUCCESS, payload: res })",
+			"\t\t\t\t})",
+			"\t\t\t.catch(err =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"err from post${1:thing}:\", err)",
+			"\t\t\t\t\tdispatch({ type: POST_${3:THING}_FAIL, payload: err })",
+			"\t\t\t\t})",
+			"}"
+		],
+		"description": "make an action to post with axiosWithAuth"
+	},
+	"axiosWithAuth put":
+	{
+		"prefix": "axaput",
+		"body": [
+			"export const put${1:thing} = (${2:thingToPut}, id) => dispatch =>",
+			"{",
+			"\tdispatch({ type: PUT_${3:THING}_START })\n",
+			"\taxiosWithAuth()",
+			"\t\t.post(`${baseURL}/${4}/id`, ${2:thingToPut})",
+			"\t\t\t.then(res =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"res from put${1:thing}:\", res)",
+			"\t\t\t\t\tdispatch({ type: PUT_${3:THING}_SUCCESS, payload: res })",
+			"\t\t\t\t})",
+			"\t\t\t.catch(err =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tconsole.log(\"err from put${1:thing}:\", err)",
+			"\t\t\t\t\tdispatch({ type: PUT_${3:THING}_FAIL, payload: err })",
+			"\t\t\t\t})",
+			"}"
+		],
+		"description": "make an action to post with axiosWithAuth"
+	},
+	"const thing = require('thing')":
+	{
+		"prefix": "reqr",
+		"body": [
+			"const ${1:thing} = require('${1:thing}')",
+		],
+		"description": "make const require thing"
+	},
+	"Express Server index.js scaffolding":
+	{
+		"prefix": "exscaf",
+		"body": [
+			"const express = require('express')",
+			"${2}",
+			"\n\nconst server = express()\n",
+			"server.listen(${1:portNum}, _ =>",
+			"{",
+			"\tconsole.log(`Server listening on port ${${1:portNum}}`)",
+			"})"
+		],
+		"description": "setup for express index.js"
+	},
+	"Express server Get":
+	{
+		"prefix": "exsget",
+		"body": [
+			"server.get('/${1:point}', (req, res) =>",
+			"{",
+			"\tdb.find(${2})",
+			"\t\t.then(response =>",
+			"\t\t\t{",
+			"\t\t\t\tres.status(200).json(response)",
+			"\t\t\t})",
+			"\t\t.catch(error =>",
+			"\t\t\t{",
+			"\t\t\t\tres.status(500).json({ error: \"${3:error string}\" })",
+			"\t\t\t})",
+			"})"
+		],
+		"description": "Get"
+	},
+	"Express server Post":
+	{
+		"prefix": "exspost",
+		"body": [
+			"server.post('/${1:point}', (req, res) =>",
+			"{",
+			"\tif(!req.body.${2:req1})",
+			"\t{",
+			"\t\tres.status(400).json({ errorMessage: \"Please provide ${2:req1} for the user\" })",
+			"\t}",
+			"\telse",
+			"\t{",
+			"\t\tdb.insert(req.body)",
+			"\t\t\t.then(response =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tres.status(201).json({ blah: \"blahblah\" })",
+			"\t\t\t\t})",
+			"\t\t\t.catch(error =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tres.status(500).json({ error: \"${3:error string}\" })",
+			"\t\t\t\t})",
+			"\t}",
+			"})"
+		],
+		"description": "Post"
+	},
+	"Express server Get By ID":
+	{
+		"prefix": "exsgetbyid",
+		"body": [
+			"server.get('/${1:point}/:id', (req, res) =>",
+			"{",
+			"\tconst id = req.params.id",
+			"\tdb.findById(id)",
+			"\t\t.then(response =>",
+			"\t\t\t{",
+			"\t\t\t\tif(response)",
+			"\t\t\t\t{",
+			"\t\t\t\t\tres.status(200).json(response)",
+			"\t\t\t\t}",
+			"\t\t\t\telse",
+			"\t\t\t\t{",
+			"\t\t\t\t\tres.status(404).json({ ${2:404ErrorBody} })",
+			"\t\t\t\t}",
+			"\t\t\t})",
+			"\t\t.catch(err =>",
+			"\t\t\t{",
+			"\t\t\t\tres.status(500).json({ ${3:500ErrorObjBody} })",
+			"\t\t\t})",
+			"})"
+		]
+	},
+	"Express server Delete By ID":
+	{
+		"prefix": "exsdeletebyid",
+		"body": [
+			"server.delete('/${1:point}/:id', (req, res) =>",
+			"{",
+			"\tconst id = req.params.id",
+			"\tdb.remove(id)",
+			"\t\t.then(response =>",
+			"\t\t\t{",
+			"\t\t\t\tif(response)",
+			"\t\t\t\t{",
+			"\t\t\t\t\tres.status(200).json(response)",
+			"\t\t\t\t}",
+			"\t\t\t\telse",
+			"\t\t\t\t{",
+			"\t\t\t\t\tres.status(404).json({ ${2:404ErrorBody} })",
+			"\t\t\t\t}",
+			"\t\t\t})",
+			"\t\t.catch(err =>",
+			"\t\t\t{",
+			"\t\t\t\tres.status(500).json({ ${3:500ErrorObjBody} })",
+			"\t\t\t})",
+			"})"
+		]
+	},
+	"Express server put By ID":
+	{
+		"prefix": "exsputbyid",
+		"body": [
+			"server.put('/${1:point}', (req, res) =>",
+			"{",
+			"const id = req.params.id",
+			"\tif(!req.body.${2:req1})",
+			"\t{",
+			"\t\tres.status(400).json({ errorMessage: \"Please provide ${2:req1} for the user\" })",
+			"\t}",
+			"\telse",
+			"\t{",
+			"\t\tdb.update(id, req.body)",
+			"\t\t\t.then(response =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tif(response)",
+			"\t\t\t\t\t{",
+			"\t\t\t\t\t\tdb.findById(id)",
+			"\t\t\t\t\t\t\t.then(response =>",
+			"\t\t\t\t\t\t\t\t{",
+			"\t\t\t\t\t\t\t\t\tres.status(200).json(response)",
+			"\t\t\t\t\t\t\t\t})",
+			"\t\t\t\t\t}",
+			"\t\t\t\t\telse",
+			"\t\t\t\t\t{",
+			"\t\t\t\t\t\tres.status(404).json({ message: \"${3:404Message}\"})",
+			"\t\t\t\t\t}",
+			"\t\t\t\t})",
+			"\t\t\t.catch(error =>",
+			"\t\t\t\t{",
+			"\t\t\t\t\tres.status(500).json({ error: \"${4:500Error}\" })",
+			"\t\t\t\t})",
+			"\t}",
+			"})"
+		]
+	},
 }
