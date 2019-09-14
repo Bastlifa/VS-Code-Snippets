@@ -356,12 +356,12 @@
 			"\t\t\t\t}",
 			"\t\t\t\telse",
 			"\t\t\t\t{",
-			"\t\t\t\t\tres.status(404).json({ errorMessage: \"${3}\" })",
+			"\t\t\t\t\tres.status(404).json({ errorMessage: `No ${3} with id \\${id} found` })",
 			"\t\t\t\t}",
 			"\t\t\t})",
 			"\t\t.catch(err =>",
 			"\t\t\t{",
-			"\t\t\t\tres.status(500).json({ errorMessage: `Could not get ${4}` })",
+			"\t\t\t\tres.status(500).json({ errorMessage: `Internal Error: Could not get ${3} with id \\${id}` })",
 			"\t\t\t})",
 			"})"
 		]
