@@ -12,7 +12,7 @@
 	"const blah = require blah":
 	{
 		"prefix": "rem",
-		"body": "const ${1:thing} = require('${2:path}${1:thing}')",
+		"body": "const ${1:thing} = require('${2:path}')",
 		"description": "old import style"
 	},
 	"reducer switch/case scaffold":
@@ -91,7 +91,7 @@
 		"body": [
 			"it('${2:thing}', () =>",
 			"{\n",
-			"})",
+			"})"
 		],
 		"description": "makes an it block"
 	},
@@ -189,7 +189,7 @@
 			"{",
 			"\tdispatch({ type: GET_${2:THING}_START })\n",
 			"\taxiosWithAuth()",
-			"\t\t.get(`${baseURL}/${3}`)",
+			"\t\t.get(`\\${baseURL}${3}`)",
 			"\t\t\t.then(res =>",
 			"\t\t\t\t{",
 			"\t\t\t\t\tconsole.log(\"res from get${1:thing}:\", res)",
@@ -212,7 +212,7 @@
 			"{",
 			"\tdispatch({ type: DELETE_${3:THING}_START })\n",
 			"\taxiosWithAuth()",
-			"\t\t.delete(`${baseURL}/${4}/id`)",
+			"\t\t.delete(`\\${baseURL}${4}/id`)",
 			"\t\t\t.then(res =>",
 			"\t\t\t\t{",
 			"\t\t\t\t\tconsole.log(\"res from delete${1:thing}:\", res)",
@@ -235,7 +235,7 @@
 			"{",
 			"\tdispatch({ type: POST_${3:THING}_START })\n",
 			"\taxiosWithAuth()",
-			"\t\t.post(`${baseURL}/${4}`, ${2:thingToPost})",
+			"\t\t.post(`\\${baseURL}${4}`, ${2:thingToPost})",
 			"\t\t\t.then(res =>",
 			"\t\t\t\t{",
 			"\t\t\t\t\tconsole.log(\"res from post${1:thing}:\", res)",
@@ -258,7 +258,7 @@
 			"{",
 			"\tdispatch({ type: PUT_${3:THING}_START })\n",
 			"\taxiosWithAuth()",
-			"\t\t.post(`${baseURL}/${4}/id`, ${2:thingToPut})",
+			"\t\t.post(`\\${baseURL}${4}/id`, ${2:thingToPut})",
 			"\t\t\t.then(res =>",
 			"\t\t\t\t{",
 			"\t\t\t\t\tconsole.log(\"res from put${1:thing}:\", res)",
@@ -277,7 +277,7 @@
 	{
 		"prefix": "reqr",
 		"body": [
-			"const ${1:thing} = require('${1:thing}')",
+			"const ${1:thing} = require('${1:thing}')"
 		],
 		"description": "make const require thing"
 	},
@@ -299,16 +299,16 @@
 	{
 		"prefix": "exsget",
 		"body": [
-			"server.get('/${1:point}', (req, res) =>",
+			"${1}.get('/${2}', (req, res) =>",
 			"{",
-			"\tdb.find(${2})",
+			"\t${3}",
 			"\t\t.then(response =>",
 			"\t\t\t{",
 			"\t\t\t\tres.status(200).json(response)",
 			"\t\t\t})",
 			"\t\t.catch(error =>",
 			"\t\t\t{",
-			"\t\t\t\tres.status(500).json({ error: \"${3:error string}\" })",
+			"\t\t\t\tres.status(500).json({ errorMessage: \"${4}\" })",
 			"\t\t\t})",
 			"})"
 		],
@@ -318,22 +318,22 @@
 	{
 		"prefix": "exspost",
 		"body": [
-			"server.post('/${1:point}', (req, res) =>",
+			"${1}.post('/${2}', (req, res) =>",
 			"{",
-			"\tif(!req.body.${2:req1})",
+			"\tif(${3})",
 			"\t{",
-			"\t\tres.status(400).json({ errorMessage: \"Please provide ${2:req1} for the user\" })",
+			"\t\tres.status(400).json({ errorMessage: \"Missing ${4}\" })",
 			"\t}",
 			"\telse",
 			"\t{",
 			"\t\tdb.insert(req.body)",
 			"\t\t\t.then(response =>",
 			"\t\t\t\t{",
-			"\t\t\t\t\tres.status(201).json({ blah: \"blahblah\" })",
+			"\t\t\t\t\tres.status(201).json(response)",
 			"\t\t\t\t})",
 			"\t\t\t.catch(error =>",
 			"\t\t\t\t{",
-			"\t\t\t\t\tres.status(500).json({ error: \"${3:error string}\" })",
+			"\t\t\t\t\tres.status(500).json({ errorMessage: `Could not get ${5}` })",
 			"\t\t\t\t})",
 			"\t}",
 			"})"
@@ -344,10 +344,10 @@
 	{
 		"prefix": "exsgetbyid",
 		"body": [
-			"server.get('/${1:point}/:id', (req, res) =>",
+			"${1}.get('/:id', (req, res) =>",
 			"{",
 			"\tconst id = req.params.id",
-			"\tdb.findById(id)",
+			"\t${2}",
 			"\t\t.then(response =>",
 			"\t\t\t{",
 			"\t\t\t\tif(response)",
@@ -356,12 +356,12 @@
 			"\t\t\t\t}",
 			"\t\t\t\telse",
 			"\t\t\t\t{",
-			"\t\t\t\t\tres.status(404).json({ ${2:404ErrorBody} })",
+			"\t\t\t\t\tres.status(404).json({ errorMessage: \"${3}\" })",
 			"\t\t\t\t}",
 			"\t\t\t})",
 			"\t\t.catch(err =>",
 			"\t\t\t{",
-			"\t\t\t\tres.status(500).json({ ${3:500ErrorObjBody} })",
+			"\t\t\t\tres.status(500).json({ errorMessage: `Could not get ${4}` })",
 			"\t\t\t})",
 			"})"
 		]
@@ -370,10 +370,10 @@
 	{
 		"prefix": "exsdeletebyid",
 		"body": [
-			"server.delete('/${1:point}/:id', (req, res) =>",
+			"${1}.delete('/:id', (req, res) =>",
 			"{",
 			"\tconst id = req.params.id",
-			"\tdb.remove(id)",
+			"\t${3}",
 			"\t\t.then(response =>",
 			"\t\t\t{",
 			"\t\t\t\tif(response)",
@@ -382,12 +382,12 @@
 			"\t\t\t\t}",
 			"\t\t\t\telse",
 			"\t\t\t\t{",
-			"\t\t\t\t\tres.status(404).json({ ${2:404ErrorBody} })",
+			"\t\t\t\t\tres.status(404).json({ errorMessage: `No ${4} with id \\${id} found`})",
 			"\t\t\t\t}",
 			"\t\t\t})",
 			"\t\t.catch(err =>",
 			"\t\t\t{",
-			"\t\t\t\tres.status(500).json({ ${3:500ErrorObjBody} })",
+			"\t\t\t\tres.status(500).json({ errorMessage: `Internal Error: Could not delete ${4} with id \\${id}` })",
 			"\t\t\t})",
 			"})"
 		]
@@ -396,37 +396,33 @@
 	{
 		"prefix": "exsputbyid",
 		"body": [
-			"server.put('/${1:point}', (req, res) =>",
+			"${1}.put('/:id', (req, res) =>",
 			"{",
 			"const id = req.params.id",
-			"\tif(!req.body.${2:req1})",
+			"\tif(${2})",
 			"\t{",
-			"\t\tres.status(400).json({ errorMessage: \"Please provide ${2:req1} for the user\" })",
+			"\t\tres.status(400).json({ errorMessage: \"Please provide ${3}\" })",
 			"\t}",
 			"\telse",
 			"\t{",
-			"\t\tdb.update(id, req.body)",
+			"\t\t${4}",
 			"\t\t\t.then(response =>",
 			"\t\t\t\t{",
 			"\t\t\t\t\tif(response)",
 			"\t\t\t\t\t{",
-			"\t\t\t\t\t\tdb.findById(id)",
-			"\t\t\t\t\t\t\t.then(response =>",
-			"\t\t\t\t\t\t\t\t{",
-			"\t\t\t\t\t\t\t\t\tres.status(200).json(response)",
-			"\t\t\t\t\t\t\t\t})",
+			"\t\t\t\t\t\tres.status(200).json(response)",
 			"\t\t\t\t\t}",
 			"\t\t\t\t\telse",
 			"\t\t\t\t\t{",
-			"\t\t\t\t\t\tres.status(404).json({ message: \"${3:404Message}\"})",
+			"\t\t\t\t\t\tres.status(404).json({ errorMessage: `No ${5} with id \\${id} found`})",
 			"\t\t\t\t\t}",
 			"\t\t\t\t})",
 			"\t\t\t.catch(error =>",
 			"\t\t\t\t{",
-			"\t\t\t\t\tres.status(500).json({ error: \"${4:500Error}\" })",
+			"\t\t\t\t\tres.status(500).json({ errorMessage: \"Internal Error: Could not update ${5} with id \\${id}\" })",
 			"\t\t\t\t})",
 			"\t}",
 			"})"
 		]
-	},
+	}
 }
